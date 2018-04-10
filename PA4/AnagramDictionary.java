@@ -18,7 +18,8 @@ import java.util.*;
 
 public class AnagramDictionary {
    
-    
+    //Representation Invariants
+    private Map<String, String> dictionary; //data in dictionary is store in Map
 
    /**
     * Create an anagram dictionary from the list of words given in the file
@@ -29,13 +30,14 @@ public class AnagramDictionary {
     */
    public AnagramDictionary(String fileName) throws FileNotFoundException {
        try{
-            //open the dictionary file
             Scanner input = new Scanner(new File(fileName));
-            ArrayList<String> dictionary = new ArrayList<String>();
-
+            dictionary = new HashMap<String, String>();
+            String line = "";
             //read dictionary file into an ArrayList
             while(input.hasNextLine()){
-                dictionary.add(input.nextLine());
+                String line = in.nextLine();
+                String sortedLine = sortString(line);
+                dictionary.put(sortedLine, line);
             }
         }
        catch (FileNotFoundException exception){
