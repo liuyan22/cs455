@@ -20,7 +20,7 @@ public class AnagramDictionary {
    
     //Representation Invariants
     private Map<String, ArrayList<String>> dictionary; //data in dictionary is store in Map
-
+    
     /**
     * Create an anagram dictionary from the list of words given in the file
     * indicated by fileName.  
@@ -55,15 +55,22 @@ public class AnagramDictionary {
     
     /**
      * get number of anagrams 
-     * @param s input string
+     * @param s string to process
+     * @return number of anagrams of s
      */
     public int numOfAnagrams(String s){
-        return this.dictionary.get(sortTheString(s)).size();
+        if(this.dictionary.get(sortTheString(s)) != null){
+            return this.dictionary.get(sortTheString(s)).size();
+        }
+        else{
+            return 0;
+        }
     }
 
     /**
      * Sort given string in alphabetical order
-     * @param string input string
+     * @param string string to process
+     * @return sorted string in alphabetical order
      */
     private String sortTheString(String string){
         char tempArr[] = string.toCharArray();
