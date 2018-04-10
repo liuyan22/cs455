@@ -11,39 +11,38 @@ import java.io.IOException;
  */
 public class WordFinder{
     public static void main(String[] args){
+
+        //optional command-line argument for the dictionary file name
         try{
-            if(args.length > 0){
-                String fileName = args[0];
-                File file = new File(fileName);
+            String fileName = "";
+            if(args.length < 1){
+                fileName = "sowpods.txt";
             }
             else{
-                String fileName = "sowpods.txt";
+                fileName = args[0];
             }
-            Scanner in = new Scanner(System.in);
-            AnagramDictionary dictionary = new AnagramDictionary("sowpods.txt"); 
-            Rack rack = new Rack();
-            System.out.println("Type . to quit");
-            //Read data to rack
-            while(in.hasNextLine()){
-                String line = in.nextLine();
-                if(!line.equals(".")){
-                    rack.addDataToRack(line);
-                    System.out.println(rack.getRack());
-                    System.out.println(rack.getMult());    
-                }
-                else{
-                    System.exit(0);
-                }  
-            }
-                 System.out.println(rack.getRack());
-        System.out.println(rack.getMult());
-            
         }
         catch(FileNotFoundException e){
             System.out.println("File Not Found");
         }
    
-        
+        Scanner in = new Scanner(System.in);
+        AnagramDictionary dictionary = new AnagramDictionary("sowpods.txt"); 
+        Rack rack = new Rack();
+        System.out.println("Type . to quit");
+        //Read data to rack
+        while(in.hasNextLine()){
+            String line = in.nextLine();
+            if(!line.equals(".")){
+                rack.addDataToRack(line);
+                System.out.println(rack.getRack());
+                System.out.println(rack.getMult());    
+            }
+            else{
+                System.exit(0);
+            }  
+        }
+            
     }
     
 }
