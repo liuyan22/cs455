@@ -35,18 +35,22 @@ public class AnagramDictionary {
             String line = "";
             //read dictionary file into an ArrayList
             while(input.hasNextLine()){
-                String line = in.nextLine();
-                String sortedLine = sortString(line);
+                line = input.nextLine();
+                String sortedLine = sortTheString(line);
                 dictionary.put(sortedLine, line);
+                System.out.println(dictionary.toString());
             }
         }
        catch (FileNotFoundException exception){
            System.out.println("File Not Found" + fileName);
-       }
-       
-   }
+       }   
+    }
    
-
+   private String sortTheString(String string){
+        char tempArr[] = string.toCharArray();
+        Arrays.sort(tempArr);
+        return new String(tempArr);
+   }
    /**
     * Get all anagrams of the given string. This method is case-sensitive.
     * E.g. "CARE" and "race" would not be recognized as anagrams.
@@ -55,6 +59,7 @@ public class AnagramDictionary {
     * 
     */
    public ArrayList<String> getAnagramsOf(String s) {
+
        return new ArrayList<String>(); // DUMMY CODE TO GET IT TO COMPILE
    }
    

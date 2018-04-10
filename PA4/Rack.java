@@ -79,7 +79,7 @@ public class Rack {
      * Sort the rack aphabetically. 
      * @param string the input String that need to be sorted
      */
-    public String sortString(String string){
+    private String sortString(String string){
         char tempArr[] = string.toCharArray();
         Arrays.sort(tempArr);
         return new String(tempArr);
