@@ -14,13 +14,14 @@ import java.util.*;
 public class Rack {
    
     //Representation Invariants
-    private char[] tiles;
-    private AnagramDictionary dictionary;
-    private ArrayList<String> madeWords;
+    private char[] tiles; //tiles of the rack
+    private AnagramDictionary dictionary; //input dictionary
+    private ArrayList<String> madeWords; //all the anagrams of all the subsets
    
     public Rack(String data, AnagramDictionary dictionary){
         this.dictionary = dictionary;
         this.tiles = data.toCharArray();
+        madeWords = new ArrayList<String>();
         Arrays.sort(tiles);
     }
 
@@ -31,6 +32,8 @@ public class Rack {
         //find mult: the multiplicity of each letter from unique.
         ArrayList<Integer> _mult = new ArrayList<Integer>();
         String unique = "";
+
+        //find unique String
         for (int i = 0; i < tiles.length; i++) {
             if (i != 0 && tiles[i] == tiles[i - 1]) {
                 _mult.set(_mult.size() - 1, _mult.get(_mult.size() - 1) + 1);;
@@ -39,36 +42,38 @@ public class Rack {
                 _mult.add(1);
             }
         }
+
+        //get mult: the multiplicity of each letter from unique.  
         int[] mult = new int[_mult.size()];
         for (int i = 0; i < _mult.size(); i++) {
             mult[i] = _mult.get(i);
         }
 
-        //find subsets 
+        //find subsets from unique string, mult, and the smallest index of unique and mult to consider
         ArrayList<String> subsets = allSubsets(unique, mult, 0);
-        for(int i = 0; i < subsets.size(); i++){
-            System.out.println(subsets.get(i));
-        }
        
         //find all anagrams to make the words
-        for (String subword: subsets) {
+        for(String subword: subsets) {
             ArrayList<String> anagrams = dictionary.getAnagramsOf(subword);
-
-            // this.madeWords.addAll(anagrams);
-            for (String anagram : anagrams) {
-                this.madeWords.add(anagram);
-            }
+            this.madeWords.addAll(anagrams);
         }
 
-        // ---TESTING: DELETE LATER ---
-        for (String word: madeWords) {
+        //---TESTING: DELETE LATER ---
+        for(String word: madeWords) {
             System.out.println(word);
         }
-        // ----------------------------
+        //----------------------------
 
     }
     
-    
+    /**
+     * get number of anagrams 
+     * @return number of anagrams of s
+     */
+    public int numOfAnagrams(){
+        return madeWords.size();
+    }
+
     /**
     * Finds all subsets of the multiset starting at position k in unique and mult.
     * unique and mult describe a multiset such that mult[i] is the multiplicity of the char

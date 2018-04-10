@@ -57,25 +57,11 @@ public class AnagramDictionary {
     }
     
     /**
-     * get number of anagrams 
-     * @param s string to process
-     * @return number of anagrams of s
-     */
-    public int numOfAnagrams(String s){
-        if(this.dictionary.get(sortTheString(s)) != null){
-            return this.dictionary.get(sortTheString(s)).size();
-        }
-        else{
-            return 0;
-        }
-    }
-
-    /**
      * Sort given string in alphabetical order
      * @param string string to process
      * @return sorted string in alphabetical order
      */
-    private String sortTheString(String string){
+    public String sortTheString(String string){
         char tempArr[] = string.toCharArray();
         Arrays.sort(tempArr);
         return new String(tempArr);

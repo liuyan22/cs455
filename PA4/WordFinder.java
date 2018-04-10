@@ -11,9 +11,9 @@ import java.io.IOException;
  */
 public class WordFinder{
     public static void main(String[] args){
+        //optional command-line argument for the dictionary file name
         String fileName = "sowpods.txt";
         AnagramDictionary dictionary = null;
-        //optional command-line argument for the dictionary file name
         try{
             if(args.length > 0){
                 fileName = args[0];
@@ -26,13 +26,14 @@ public class WordFinder{
    
         Scanner in = new Scanner(System.in);
         System.out.println("Type . to quit");
-        //Read data to rack
         while(in.hasNextLine()){
             String line = in.nextLine();
             if(line != "."){
                 line = line.replaceAll("[^a-zA-Z]+", "");
-                Rack rack = new Rack(line, dictionary);
+                Rack rack = new Rack(line, dictionary); 
                 System.out.println("Rack? " + line);
+                System.out.println("We can make " + rack.numOfAnagrams() + " from " + dictionary.sortTheString(line));
+                System.out.println("All of the words with their scores (sorted by score): ");
                 rack.makeWords();
             }
             else{
