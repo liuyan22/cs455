@@ -45,7 +45,8 @@ public class WordFinder{
 
     /**
      * print all anagrams from given rack
-     * @param 
+     * @param line input string
+     * @param dictionary dictionary
      */
     public static void printAnagrams(String line, AnagramDictionary dictionary){
         System.out.println("All of the words with their scores (sorted by score)");

@@ -31,7 +31,7 @@ public class AnagramDictionary {
     public AnagramDictionary(String fileName) throws FileNotFoundException {
         Scanner input = new Scanner(new File(fileName));
         dictionary = new HashMap<String, ArrayList<String>>();
-        //read dictionary file into an ArrayList
+        //read dictionary file into a hashmap
         while(input.hasNextLine()){
             String word = input.nextLine();
             String sortedWord = sortTheString(word);
@@ -55,7 +55,7 @@ public class AnagramDictionary {
     
     /**
      * get number of anagrams 
-     * @param string input string
+     * @param s input string
      */
     public int numOfAnagrams(String s){
         return this.dictionary.get(sortTheString(s)).size();
