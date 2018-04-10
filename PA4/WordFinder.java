@@ -11,32 +11,30 @@ import java.io.IOException;
  */
 public class WordFinder{
     public static void main(String[] args){
-
+        String fileName = "sowpods.txt";
+        AnagramDictionary dictionary = null;
         //optional command-line argument for the dictionary file name
-        String fileName = "";
         try{
-            if(args.length < 1){
-                fileName = "sowpods.txt";
-                AnagramDictionary dictionary = new AnagramDictionary(fileName); 
-            }
-            else{
+            if(args.length > 0){
                 fileName = args[0];
             }
+            dictionary = new AnagramDictionary(fileName);
         }
         catch(FileNotFoundException e){
             System.out.println("File Not Found" + fileName);
         }
    
         Scanner in = new Scanner(System.in);
-        Rack rack = new Rack();
         System.out.println("Type . to quit");
         //Read data to rack
         while(in.hasNextLine()){
             String line = in.nextLine();
-            if(!line.equals(".")){
-                rack.addDataToRack(line);
-                System.out.println(rack.getRack());
-                System.out.println(rack.getMult());    
+            if(line != "."){
+                line = line.replaceAll("[^a-zA-Z]+", "");
+                Rack rack = new Rack(line);
+                System.out.println("Rack? " + line);
+                System.out.println("We can make " + dictionary.numOfAnagrams(line) + " " + "words from" + " " + rack.sortString(line));
+                printAnagrams(line, dictionary);
             }
             else{
                 System.exit(0);
@@ -44,5 +42,17 @@ public class WordFinder{
         }
             
     }
-    
+
+    /**
+     * print all anagrams from given rack
+     * @param 
+     */
+    public static void printAnagrams(String line, AnagramDictionary dictionary){
+        System.out.println("All of the words with their scores (sorted by score)");
+        ArrayList<String> anagrams = new ArrayList<String>();
+        anagrams = dictionary.getAnagramsOf(line);
+        for(int i = 0; i < anagrams.size(); i++){
+            System.out.println(anagrams.get(i));
+        }
+    }
 }

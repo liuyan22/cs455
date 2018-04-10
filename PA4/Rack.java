@@ -14,20 +14,13 @@ import java.util.*;
 public class Rack {
    
     //Representation Invariants
-    private int[] mult;
-    private String rack;
-    private ArrayList<Integer> vals;
-    private ArrayList<String> subset;
     private Map<String, Integer> rackMap;
-    private String sortedString;
+    private String rack;
+    private int[] mult; //the multiplicity of each letter from unique
+    private ArrayList<String> subsets;
 
-    
-    public Rack(){
-        rack = "";
-        //vals = new ArrayList<Integer>();
-        mult = new int[100];
-        rackMap = new TreeMap<String, Integer>();
-        subset = allSubsets(getUniqueStr(), mult, 0);
+    public Rack(String line){
+        this.rack = line;
     }
 
     /**
@@ -35,59 +28,51 @@ public class Rack {
      * into the racakMap.
      * @param line input string
      */
-    public void addDataToRack(String line){
-        vals = new ArrayList<Integer>();
-        rack = line.replaceAll("[^a-zA-Z]+", "");
-        sortedString = sortString(line);
-        int curr = 0;
-        for(int i = 0; i < rack.length(); i++){
-            if(rackMap.containsKey(String.valueOf(rack.charAt(i)))){
-                curr = rackMap.get(String.valueOf(rack.charAt(i)));
-                rackMap.put(String.valueOf(rack.charAt(i)), curr + 1);
+    public ArrayList<String> getSubsets(String line){
+        line = line.replaceAll("[^a-zA-Z]+", ""); //pass in only legal words for rack
+        mult = new int[100];
+        rackMap = new TreeMap<String, Integer>();
+        String sortedLine = sortString(line); //sort the line in alphabetical order
+        for(int i = 0; i < sortedLine.length(); i++){
+            if(rackMap.containsKey(String.valueOf(sortedLine.charAt(i)))){
+                int curr = rackMap.get(String.valueOf(sortedLine.charAt(i)));
+                rackMap.put(String.valueOf(sortedLine.charAt(i)), curr + 1);
             }
             else{
-                rackMap.put(String.valueOf(rack.charAt(i)), 1);
+                rackMap.put(String.valueOf(sortedLine.charAt(i)), 1);
             }  
         }
-        
-        for(Map.Entry<String, Integer> val : rackMap.entrySet()){
-           vals.add(val.getValue());
+        ArrayList<Integer> val = new ArrayList<Integer>();
+        String uniqueStr = "";
+        //get unique string from line
+        for(Map.Entry<String, Integer> vals : rackMap.entrySet()){
+            val.add(vals.getValue());
+            uniqueStr += vals.getKey();
         }
-        // for(int i = 0; i < vals.size(); i++){
-        //     mult[i] = vals.get(i);
-        // }
+        for(int i = 0; i < val.size(); i++){ //store map value to an array
+            mult[i] = val.get(i);
+        }
+        subsets = new ArrayList<String>();
+        subsets = allSubsets(uniqueStr, mult, 0);
+        return subsets;
     }
 
     /**
-     * Accessor: get Sorted rack 
+     * Accessor: get number of subsets
      */
-    public String getSortedStr(){
-        return this.sortedString;
-    }
-
-    public ArrayList<Integer> getMult(){
-        return this.vals;
-    }
-    /**
-     * Accessor: to get all subsets of a rack
-     */
-    public ArrayList getSubsets(){
-        return this.subset;
+    public int numOfSubsets(){
+        return subsets.size();
     }
 
     /**
      * Sort the rack aphabetically. 
      * @param string the input String that need to be sorted
      */
-    private String sortString(String string){
+    public String sortString(String string){
         char tempArr[] = string.toCharArray();
         Arrays.sort(tempArr);
         return new String(tempArr);
     }             
-
-    public String getRack(){
-        return this.rack;
-    }
     
     /**
      * Get unique String from the map 
