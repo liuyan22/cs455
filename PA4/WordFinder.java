@@ -31,10 +31,9 @@ public class WordFinder{
             String line = in.nextLine();
             if(line != "."){
                 line = line.replaceAll("[^a-zA-Z]+", "");
-                Rack rack = new Rack(line);
+                Rack rack = new Rack(line, dictionary);
                 System.out.println("Rack? " + line);
-                System.out.println("We can make " + dictionary.numOfAnagrams(rack.sortString(line)) + " " + "words from" + " " + rack.sortString(line));
-                printAnagrams(rack.sortString(line), dictionary);
+                rack.makeWords();
             }
             else{
                 System.exit(0);
@@ -43,19 +42,4 @@ public class WordFinder{
             
     }
 
-    /**
-     * print all anagrams from given rack
-     * @param line input string
-     * @param dictionary dictionary
-     */
-    public static void printAnagrams(String line, AnagramDictionary dictionary){
-        System.out.println("All of the words with their scores (sorted by score)");
-        ArrayList<String> anagrams = new ArrayList<String>();
-        anagrams = dictionary.getAnagramsOf(line);
-        if(anagrams != null){
-            for(int i = 0; i < anagrams.size(); i++){
-                System.out.println(anagrams.get(i));
-            }
-        }
-    }
 }

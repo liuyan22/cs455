@@ -14,78 +14,61 @@ import java.util.*;
 public class Rack {
    
     //Representation Invariants
-    private Map<String, Integer> rackMap;
-    private String rack;
-    private int[] mult; //the multiplicity of each letter from unique
-    private ArrayList<String> subsets;
-
-    public Rack(String line){
-        this.rack = line;
+    private char[] tiles;
+    private AnagramDictionary dictionary;
+    private ArrayList<String> madeWords;
+   
+    public Rack(String data, AnagramDictionary dictionary){
+        this.dictionary = dictionary;
+        this.tiles = data.toCharArray();
+        Arrays.sort(tiles);
     }
 
     /**
-     * Read each line from text file, store each character as key and each occurrence as value
-     * into the racakMap.
-     * @param line input string
+     * Find all words can be made for current rack
      */
-    public ArrayList<String> getSubsets(String line){
-        line = line.replaceAll("[^a-zA-Z]+", ""); //pass in only legal words for rack
-        mult = new int[100];
-        rackMap = new TreeMap<String, Integer>();
-        String sortedLine = sortString(line); //sort the line in alphabetical order
-        for(int i = 0; i < sortedLine.length(); i++){
-            if(rackMap.containsKey(String.valueOf(sortedLine.charAt(i)))){
-                int curr = rackMap.get(String.valueOf(sortedLine.charAt(i)));
-                rackMap.put(String.valueOf(sortedLine.charAt(i)), curr + 1);
+    public void makeWords(){
+        //find mult: the multiplicity of each letter from unique.
+        ArrayList<Integer> _mult = new ArrayList<Integer>();
+        String unique = "";
+        for (int i = 0; i < tiles.length; i++) {
+            if (i != 0 && tiles[i] == tiles[i - 1]) {
+                _mult.set(_mult.size() - 1, _mult.get(_mult.size() - 1) + 1);;
+            } else {
+                unique += tiles[i];
+                _mult.add(1);
             }
-            else{
-                rackMap.put(String.valueOf(sortedLine.charAt(i)), 1);
-            }  
         }
-        ArrayList<Integer> val = new ArrayList<Integer>();
-        String uniqueStr = "";
-        //get unique string from line
-        for(Map.Entry<String, Integer> vals : rackMap.entrySet()){
-            val.add(vals.getValue());
-            uniqueStr += vals.getKey();
+        int[] mult = new int[_mult.size()];
+        for (int i = 0; i < _mult.size(); i++) {
+            mult[i] = _mult.get(i);
         }
-        for(int i = 0; i < val.size(); i++){ //store map value to an array
-            mult[i] = val.get(i);
-        }
-        subsets = new ArrayList<String>();
-        subsets = allSubsets(uniqueStr, mult, 0);
-        return subsets;
-    }
 
-    /**
-     * Accessor: get number of subsets
-     */
-    public int numOfSubsets(){
-        return subsets.size();
-    }
+        //find subsets 
+        ArrayList<String> subsets = allSubsets(unique, mult, 0);
+        for(int i = 0; i < subsets.size(); i++){
+            System.out.println(subsets.get(i));
+        }
+       
+        //find all anagrams to make the words
+        for (String subword: subsets) {
+            ArrayList<String> anagrams = dictionary.getAnagramsOf(subword);
 
-    /**
-     * Sort the rack aphabetically. 
-     * @param string the input String that need to be sorted
-     */
-    public String sortString(String string){
-        char tempArr[] = string.toCharArray();
-        Arrays.sort(tempArr);
-        return new String(tempArr);
-    }             
+            // this.madeWords.addAll(anagrams);
+            for (String anagram : anagrams) {
+                this.madeWords.add(anagram);
+            }
+        }
+
+        // ---TESTING: DELETE LATER ---
+        for (String word: madeWords) {
+            System.out.println(word);
+        }
+        // ----------------------------
+
+    }
     
-    /**
-     * Get unique String from the map 
-     */
-    public String getUniqueStr(){
-        String uniqueStr = "";
-        for(Map.Entry<String, Integer> value : rackMap.entrySet()){
-            uniqueStr  += value.getKey();
-        }
-        return uniqueStr;
-    }
-
-
+    
     /**
     * Finds all subsets of the multiset starting at position k in unique and mult.
     * unique and mult describe a multiset such that mult[i] is the multiplicity of the char

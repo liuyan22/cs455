@@ -50,7 +50,10 @@ public class AnagramDictionary {
     * 
     */
     public ArrayList<String> getAnagramsOf(String s) {
-        return this.dictionary.get(sortTheString(s));
+        if(this.dictionary.get(sortTheString(s)) != null){
+            return this.dictionary.get(sortTheString(s));
+        }
+        return new ArrayList<String>();
     }
     
     /**
