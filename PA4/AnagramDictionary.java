@@ -18,7 +18,7 @@ import java.util.*;
 
 public class AnagramDictionary {
    
-
+    
 
    /**
     * Create an anagram dictionary from the list of words given in the file

@@ -24,7 +24,7 @@ public class Rack {
     
     public Rack(){
         rack = "";
-        vals = new ArrayList<Integer>();
+        //vals = new ArrayList<Integer>();
         mult = new int[100];
         rackMap = new TreeMap<String, Integer>();
         subset = allSubsets(getUniqueStr(), mult, 0);
@@ -36,6 +36,7 @@ public class Rack {
      * @param line input string
      */
     public void addDataToRack(String line){
+        vals = new ArrayList<Integer>();
         rack = line.replaceAll("[^a-zA-Z]+", "");
         sortedString = sortString(line);
         int curr = 0;

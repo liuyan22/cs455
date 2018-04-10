@@ -13,21 +13,21 @@ public class WordFinder{
     public static void main(String[] args){
 
         //optional command-line argument for the dictionary file name
+        String fileName = "";
         try{
-            String fileName = "";
             if(args.length < 1){
                 fileName = "sowpods.txt";
+                AnagramDictionary dictionary = new AnagramDictionary(fileName); 
             }
             else{
                 fileName = args[0];
             }
         }
         catch(FileNotFoundException e){
-            System.out.println("File Not Found");
+            System.out.println("File Not Found" + fileName);
         }
    
         Scanner in = new Scanner(System.in);
-        AnagramDictionary dictionary = new AnagramDictionary("sowpods.txt"); 
         Rack rack = new Rack();
         System.out.println("Type . to quit");
         //Read data to rack
