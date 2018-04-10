@@ -12,11 +12,12 @@ import java.io.IOException;
 public class WordFinder{
     public static void main(String[] args){
         try{
-            if(0 < args.lenth){
+            if(args.length > 0){
                 String fileName = args[0];
                 File file = new File(fileName);
-            }else{
-                
+            }
+            else{
+                String fileName = "sowpods.txt";
             }
             Scanner in = new Scanner(System.in);
             AnagramDictionary dictionary = new AnagramDictionary("sowpods.txt"); 
