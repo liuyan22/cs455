@@ -12,6 +12,12 @@ import java.io.IOException;
 public class WordFinder{
     public static void main(String[] args){
         try{
+            if(0 < args.lenth){
+                String fileName = args[0];
+                File file = new File(fileName);
+            }else{
+                
+            }
             Scanner in = new Scanner(System.in);
             AnagramDictionary dictionary = new AnagramDictionary("sowpods.txt"); 
             Rack rack = new Rack();
@@ -21,7 +27,7 @@ public class WordFinder{
                 String line = in.nextLine();
                 if(!line.equals(".")){
                     rack.addDataToRack(line);
-                     System.out.println(rack.getRack());
+                    System.out.println(rack.getRack());
                     System.out.println(rack.getMult());    
                 }
                 else{
