@@ -25,6 +25,7 @@ public class WordFinder{
         }
    
         Scanner in = new Scanner(System.in);
+        char ch = '"';
         System.out.println("Type . to quit");
         while(in.hasNextLine()){
             String line = in.nextLine();
@@ -32,9 +33,10 @@ public class WordFinder{
                 line = line.replaceAll("[^a-zA-Z]+", "");
                 Rack rack = new Rack(line, dictionary); 
                 System.out.println("Rack? " + line);
-                System.out.println("We can make " + rack.numOfAnagrams() + " from " + dictionary.sortTheString(line));
-                System.out.println("All of the words with their scores (sorted by score): ");
+                String sortedStr = dictionary.sortTheString((line));
                 rack.makeWords();
+                System.out.println("We can make " + rack.numOfAnagrams() + " from " + ch + dictionary.sortTheString(line) + ch);
+                System.out.println("All of the words with their scores (sorted by score): "); 
             }
             else{
                 System.exit(0);

@@ -75,6 +75,14 @@ public class Rack {
     }
 
     /**
+     * get made words -> anagrams of all subsets
+     * @return arraylist of all anagrams of all subsets
+     */
+    public ArrayList<String> getMadeWords(){
+        return this.madeWords;
+    }
+
+    /**
     * Finds all subsets of the multiset starting at position k in unique and mult.
     * unique and mult describe a multiset such that mult[i] is the multiplicity of the char
     *      unique.charAt(i).
