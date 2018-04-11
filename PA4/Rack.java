@@ -59,9 +59,9 @@ public class Rack {
         }
 
         //---TESTING: DELETE LATER ---
-        for(String word: madeWords) {
-            System.out.println(word);
-        }
+        // for(String word: madeWords) {
+        //     System.out.println(word);
+        // }
         //----------------------------
 
     }

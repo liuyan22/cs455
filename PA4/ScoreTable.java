@@ -19,8 +19,10 @@ public class ScoreTable{
         int[] score = new int['z' + 1];
     }
 
-    
-    public ArrayList<String> sortAnagrams(ArrayList<String> madeWords){
+    /**
+     * Print sorted version of words made, according to score/alphabet
+     */
+    public void printSortedAnagrams(ArrayList<String> madeWords){
         score['a'] = score['e'] = score['i'] = score['o'] = score['u'] = score['l'] = score['n'] = score['s'] = score['t'] = score['r'] = 1;
         score['d'] = score['g'] = 2; //assign value to score at index 'd' & 'g'.
         score['b'] = score['c'] = score['m'] = score['p'] = 3;
@@ -28,9 +30,9 @@ public class ScoreTable{
         score['k'] = 5;
         score['j'] = score['x'] = 8;
         score['q'] = score['z'] = 10;
-
+        
         //get scores of each madeWord
-        Map<String, Integer> wordsMap = new TreeMap <String, Integer>();
+        Map<String, Integer> wordsMap = new TreeMap<String, Integer>();
         int scores = 0;
         String word = "";
         for(int i = 0; i < madeWords.size(); i++){
@@ -40,12 +42,12 @@ public class ScoreTable{
                 char ch = temp[j];
                 scores = scores + score[ch - 'a'];
             }
-            wordsMap.put(word, score);
+            wordsMap.put(word, scores);
         }
         
         //sort made Words from tiles according to their score, if the scores are the same, then sort them alphabeticlly
-        ArrayList<Map.Entry<String, Integer>> wordsMapList = new ArrayList(wordsMap.entrySet());
-        Collections.sort(madeWords, new Comparator<Map.Entry<String, Integer>>(){
+        ArrayList<Map.Entry<String, Integer>> wordsMapList = new ArrayList<Map.Entry<String, Integer>>(wordsMap.entrySet());
+        Collections.sort(wordsMapList, new Comparator<Map.Entry<String, Integer>>(){
             @Override
             public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2){
                 if(o1.getValue() != o2.getValue()){
@@ -57,9 +59,11 @@ public class ScoreTable{
 
         ArrayList<String> sorted = new ArrayList<String>();
         for(Map.Entry<String, Integer> val : wordsMapList){
-            sorted.add(val.getValue());
+            sorted.add(val.getKey());
         }
-        return sorted;
+        for(int i = 0; i < sorted.size(); i++){
+            System.out.println(sorted.get(i));
+        }
     }
     
     

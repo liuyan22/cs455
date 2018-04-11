@@ -32,11 +32,13 @@ public class WordFinder{
             if(line != "."){
                 line = line.replaceAll("[^a-zA-Z]+", "");
                 Rack rack = new Rack(line, dictionary); 
+                ScoreTable table = new ScoreTable();
                 System.out.println("Rack? " + line);
                 String sortedStr = dictionary.sortTheString((line));
                 rack.makeWords();
-                System.out.println("We can make " + rack.numOfAnagrams() + " from " + ch + dictionary.sortTheString(line) + ch);
+                System.out.println("We can make " + rack.numOfAnagrams() + " words from " + ch + dictionary.sortTheString(line) + ch);
                 System.out.println("All of the words with their scores (sorted by score): "); 
+                table.printSortedAnagrams(rack.getMadeWords());
             }
             else{
                 System.exit(0);
