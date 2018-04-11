@@ -26,10 +26,9 @@ public class Rack {
     }
 
     /**
-     * Find all words can be made for current rack
+     * Find all words can be made from current rack.
      */
     public void makeWords(){
-        //find mult: the multiplicity of each letter from unique.
         ArrayList<Integer> _mult = new ArrayList<Integer>();
         String unique = "";
 
@@ -43,7 +42,7 @@ public class Rack {
             }
         }
 
-        //get mult: the multiplicity of each letter from unique.  
+        //find mult: the multiplicity of each letter from unique string of the rack.  
         int[] mult = new int[_mult.size()];
         for (int i = 0; i < _mult.size(); i++) {
             mult[i] = _mult.get(i);
@@ -53,25 +52,22 @@ public class Rack {
         ArrayList<String> subsets = allSubsets(unique, mult, 0);
        
         //find all anagrams to make the words
-        for(String subword: subsets) {
+        for (String subword: subsets) {
             ArrayList<String> anagrams = dictionary.getAnagramsOf(subword);
             this.madeWords.addAll(anagrams);
         }
-
-        //---TESTING: DELETE LATER ---
-        // for(String word: madeWords) {
-        //     System.out.println(word);
-        // }
-        //----------------------------
-
     }
     
     /**
      * get number of anagrams 
      * @return number of anagrams of s
      */
-    public int numOfAnagrams(){
-        return madeWords.size();
+    public int numOfMadeWords(){
+        if(madeWords != null){
+            return madeWords.size();
+        }
+
+        return 0;
     }
 
     /**
@@ -79,6 +75,7 @@ public class Rack {
      * @return arraylist of all anagrams of all subsets
      */
     public ArrayList<String> getMadeWords(){
+
         return this.madeWords;
     }
 
@@ -120,6 +117,4 @@ public class Rack {
         
         return allCombos;
     }
-
-   
 }

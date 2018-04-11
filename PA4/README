@@ -1,5 +1,5 @@
-Name: 
-USC NetID: 
+Name: Yan Liu
+USC NetID: liu156
 CS 455 PA4
 Spring 2018
 
@@ -15,7 +15,7 @@ other students in the course."
 
 Initial below to "sign" the above statement:
 
-
+YL
 ----------------------------------------------
 ACKNOWLEDGE ANY OUTSIDE SOURCES
 
@@ -36,6 +36,9 @@ KNOWN BUGS or LIMITATIONS:
 ----------------------------------------------
 DESCRIPTION OF YOUR CLASS DESIGN AND ALGORITHMS AND DATA STRUCTURES USED:
 
+AnagramDictionary Class:
+The process is case sensitive, depend on the dictionary. e.g. if the dictionary is all upper case, then the 
+strings from test file should be all upper case
 
 
 ----------------------------------------------
